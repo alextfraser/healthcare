@@ -14,17 +14,26 @@ import {
   Stethoscope,
   Users2
 } from 'lucide-react';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
 
-function App() {
-  const [savings, setSavings] = useState(25000);
-  const [patients, setPatients] = useState(5000);
+interface LandingPageProps {
+  savings: number;
+  setSavings: (value: number) => void;
+  patients: number;
+  setPatients: (value: number) => void;
+  calculateSavings: () => string;
+}
 
-  const calculateSavings = () => {
-    return (patients * 5.2).toFixed(0);
-  };
-
+function LandingPage({ 
+  savings, 
+  setSavings, 
+  patients, 
+  setPatients, 
+  calculateSavings 
+}: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-white">
+    <>
       {/* Hero Section */}
       <header className="bg-gradient-to-r from-[#005EB8] to-[#003087] text-white">
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -52,9 +61,11 @@ function App() {
               Streamline operations, optimize resources, and enhance patient care with our NHS-compliant analytics platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
+            <Link to="/dashboard">
               <button className="bg-[#41B6E6] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#2DA7D7] transition flex items-center justify-center">
                 Get Started <ChevronRight className="ml-2 h-5 w-5" />
               </button>
+            </Link>
               <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition">
                 Watch Demo
               </button>
@@ -264,7 +275,38 @@ function App() {
           </div>
         </div>
       </footer>
-    </div>
+    </>
+  );
+}
+
+function App() {
+  const [savings, setSavings] = useState(25000);
+  const [patients, setPatients] = useState(5000);
+
+  const calculateSavings = () => {
+    return (patients * 5.2).toFixed(0);
+  };
+
+  return (
+    <HashRouter>
+      <div className="min-h-screen bg-white">
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <LandingPage 
+                savings={savings}
+                setSavings={setSavings}
+                patients={patients}
+                setPatients={setPatients}
+                calculateSavings={calculateSavings}
+              />
+            } 
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
 
