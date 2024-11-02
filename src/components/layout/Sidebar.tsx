@@ -11,6 +11,8 @@ import {
   ClipboardList,
   UserCircle,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
 
 const menuItems = [
   { icon: Home, label: 'Overview', href: '/dashboard' },
@@ -34,17 +36,22 @@ export default function Sidebar() {
       
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
-          {menuItems.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className="flex items-center space-x-3 text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <item.icon className="h-5 w-5" />
-                <span>{item.label}</span>
-              </a>
-            </li>
-          ))}
+        <div>
+      {menuItems.map((item) => (
+        <Link
+          key={item.href}
+          to={item.href}
+          className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition ${
+            location.pathname === item.href 
+              ? 'bg-blue-100 text-blue-600' 
+              : 'hover:bg-gray-100'
+          }`}
+        >
+          <item.icon className="h-5 w-5" />
+          <span>{item.label}</span>
+        </Link>
+      ))}
+    </div>
         </ul>
       </nav>
 

@@ -16,6 +16,11 @@ import {
 } from 'lucide-react';
 import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import Patients from './pages/Patients';
+import Appointments from './pages/Appointments';
+import Staff from './pages/Staff';
+import Reports from './pages/Reports';
+import Resources from './pages/Resources';
 
 interface LandingPageProps {
   savings: number;
@@ -304,6 +309,11 @@ function App() {
             } 
           />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/patients" element={<Patients />} />
+          <Route path="/dashboard/appointments" element={<Appointments />} />
+          <Route path="/dashboard/staff" element={<Staff />} />
+          <Route path="/dashboard/reports" element={<Reports />} />
+          <Route path="/dashboard/resources" element={<Resources />} />
         </Routes>
       </div>
     </HashRouter>
